@@ -4,7 +4,7 @@ function Footer() {
   return (
     <footer>
       <div className="container">
-        <p>LLMs.txt Generator &copy; {new Date().getFullYear()}</p>
+        <p>LLMs.txt Generator Tool by ImmortalSEO.com &copy; {new Date().getFullYear()}</p>
       </div>
     </footer>
   );

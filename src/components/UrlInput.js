@@ -73,8 +73,8 @@ function UrlInput({ onScrape, loading }) {
 
   return (
     <div className="url-input-container">
-      <h2>Generate LLMs.txt and Markdown Files</h2>
-      <p>Enter a website URL to generate LLMs.txt and .md files with content from the site.</p>
+      <h2>Generate Optimized LLMs.txt & Markdown Files for AI Search Engines</h2>
+      <p>Input a Website URL to Automatically Generate AI-Ready LLMs.txt and Markdown (.md) Files with Relevant Site Content for Enhanced SEO Performance.</p>
       
       <div className="toggle-container">
         <div 
