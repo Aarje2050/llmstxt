@@ -36,12 +36,20 @@ function FilePreview({
   
   const handleSaveContent = (content) => {
     if (activeTab === 'llms-txt') {
-      onUpdateLlmsTxt(activeUrl, content);
+      // Clean any potential .md extensions before saving
+      const cleanedContent = cleanMdExtensions(content);
+      onUpdateLlmsTxt(activeUrl, cleanedContent);
     } else if (activeTab === 'md-files' && activeMdFile) {
       onUpdateMdFile(activeUrl, activeMdFile, content);
     }
     
     setIsEditing(false);
+  };
+  
+  // Function to clean .md extensions from content if any are present
+  const cleanMdExtensions = (content) => {
+    // Simple regex to find and remove .md extensions in markdown links
+    return content.replace(/\]\(([^)]+)\.md\)/g, ']($1)');
   };
   
   // Get current content based on active tab
@@ -96,10 +104,10 @@ function FilePreview({
           LLMs.txt
         </div>
         <div 
-          className={`tab ${activeTab === 'md-files' ? 'active' : ''}`}
-          onClick={() => setActiveTab('md-files')}
+          className="tab disabled"
+          title="Markdown files coming soon"
         >
-          Markdown Files
+          Markdown Files <span className="coming-soon-badge">COMING SOON</span>
         </div>
         <div 
           className={`tab ${activeTab === 'discovered-urls' ? 'active' : ''}`}
@@ -122,60 +130,14 @@ function FilePreview({
               />
             ) : (
               <>
-                <SyntaxHighlighter language="text" style={docco}>
-                  {result.llms_txt}
+                <SyntaxHighlighter language="markdown" style={docco}>
+                  {cleanMdExtensions(result.llms_txt)}
                 </SyntaxHighlighter>
                 <FileActions 
-                  content={result.llms_txt}
+                  content={cleanMdExtensions(result.llms_txt)}
                   filename="LLMs.txt"
                   onEdit={handleEditToggle}
                 />
-              </>
-            )}
-          </>
-        )}
-        
-        {activeTab === 'md-files' && (
-          <>
-            <h3>Markdown Files</h3>
-            
-            {/* File selection */}
-            <div className="input-group">
-              <label htmlFor="md-file-select">Select File:</label>
-              <select 
-                id="md-file-select"
-                value={activeMdFile || ''}
-                onChange={(e) => onMdFileChange(e.target.value)}
-                className="select-input"
-              >
-                {Object.keys(result.md_files).map(url => (
-                  <option key={url} value={url}>
-                    {result.md_files[url].filename}
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            {activeMdFile && (
-              <>
-                {isEditing ? (
-                  <FileEditor 
-                    content={result.md_files[activeMdFile].content} 
-                    onSave={handleSaveContent}
-                    onCancel={() => setIsEditing(false)}
-                  />
-                ) : (
-                  <>
-                    <SyntaxHighlighter language="markdown" style={docco}>
-                      {result.md_files[activeMdFile].content}
-                    </SyntaxHighlighter>
-                    <FileActions 
-                      content={result.md_files[activeMdFile].content}
-                      filename={result.md_files[activeMdFile].filename}
-                      onEdit={handleEditToggle}
-                    />
-                  </>
-                )}
               </>
             )}
           </>
@@ -185,9 +147,9 @@ function FilePreview({
           <>
             <h3>Discovered URLs</h3>
             <div className="file-content">
-              <ul>
+              <ul className="url-list">
                 {result.discovered_urls.map((url, index) => (
-                  <li key={index}>{url}</li>
+                  <li key={index} className="url-list-item">{url}</li>
                 ))}
               </ul>
             </div>
