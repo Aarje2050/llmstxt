@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import FileEditor from './FileEditor';
 import FileActions from './FileActions';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import TokenCounter from './TokenCounter';
+import TokenAnalytics from './TokenAnalytics';
+import FileEditor from './FileEditor';
 
 function FilePreview({ 
   results, 
@@ -15,7 +17,8 @@ function FilePreview({
 }) {
   const [activeTab, setActiveTab] = useState('llms-txt');
   const [isEditing, setIsEditing] = useState(false);
-  
+  const [tokenModel, setTokenModel] = useState('gpt-3.5-turbo');
+
   const result = results[activeUrl];
   
   // Handle errors
@@ -45,6 +48,11 @@ function FilePreview({
     
     setIsEditing(false);
   };
+
+  // Handle token model change
+  const handleModelChange = (model) => {
+    setTokenModel(model);
+  };
   
   // Function to clean .md extensions from content if any are present
   const cleanMdExtensions = (content) => {
@@ -52,14 +60,9 @@ function FilePreview({
     return content.replace(/\]\(([^)]+)\.md\)/g, ']($1)');
   };
   
-  // Get current content based on active tab
-  const getCurrentContent = () => {
-    if (activeTab === 'llms-txt') {
-      return result.llms_txt;
-    } else if (activeTab === 'md-files' && activeMdFile) {
-      return result.md_files[activeMdFile].content;
-    }
-    return '';
+  // Get clean content
+  const getCleanContent = () => {
+    return cleanMdExtensions(result.llms_txt || '');
   };
   
   // Get current filename based on active tab
@@ -115,6 +118,12 @@ function FilePreview({
         >
           Discovered URLs <span className="url-count">{result.discovered_urls.length}</span>
         </div>
+        <div 
+          className={`tab ${activeTab === 'token-analytics' ? 'active' : ''}`}
+          onClick={() => setActiveTab('token-analytics')}
+        >
+          Token Analytics
+        </div>
       </div>
       
       {/* Content area */}
@@ -122,19 +131,26 @@ function FilePreview({
         {activeTab === 'llms-txt' && (
           <>
             <h3>LLMs.txt</h3>
+            
+            {/* Token counter in LLMs.txt tab */}
+            <TokenCounter 
+              content={getCleanContent()} 
+              modelName={tokenModel}
+            />
+            
             {isEditing ? (
               <FileEditor 
-                content={result.llms_txt} 
+                content={getCleanContent()}
                 onSave={handleSaveContent}
                 onCancel={() => setIsEditing(false)}
               />
             ) : (
               <>
                 <SyntaxHighlighter language="markdown" style={docco}>
-                  {cleanMdExtensions(result.llms_txt)}
+                  {getCleanContent()}
                 </SyntaxHighlighter>
                 <FileActions 
-                  content={cleanMdExtensions(result.llms_txt)}
+                  content={getCleanContent()}
                   filename="LLMs.txt"
                   onEdit={handleEditToggle}
                 />
@@ -153,6 +169,40 @@ function FilePreview({
                 ))}
               </ul>
             </div>
+          </>
+        )}
+        
+        {activeTab === 'token-analytics' && (
+          <>
+            <h3>Token Analytics</h3>
+            <p className="tab-description">
+              Detailed token usage statistics and cost estimates for your LLMs.txt content.
+            </p>
+            
+            {/* Model selector in the analytics tab */}
+            <div className="model-selector-container">
+              <label htmlFor="analytics-model-select">AI Model:</label>
+              <select 
+                id="analytics-model-select"
+                value={tokenModel}
+                onChange={(e) => setTokenModel(e.target.value)}
+                className="model-select-input"
+              >
+                <option value="gpt-3.5-turbo">GPT-3.5 Turbo (4K)</option>
+                <option value="gpt-4">GPT-4 (8K)</option>
+                <option value="gpt-4-32k">GPT-4 (32K)</option>
+                <option value="claude-2">Claude 2 (100K)</option>
+                <option value="claude-instant">Claude Instant (100K)</option>
+                <option value="llama-2-7b">LLaMA 2 7B (4K)</option>
+                <option value="llama-2-13b">LLaMA 2 13B (4K)</option>
+                <option value="llama-2-70b">LLaMA 2 70B (4K)</option>
+              </select>
+            </div>
+            
+            <TokenAnalytics 
+              content={getCleanContent()}
+              modelName={tokenModel}
+            />
           </>
         )}
       </div>

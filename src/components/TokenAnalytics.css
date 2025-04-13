@@ -1,0 +1,229 @@
+.token-analytics {
+    margin-top: 20px;
+  }
+  
+  .analytics-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .summary-item {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .summary-label {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  
+  .summary-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .token-distribution {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .token-distribution h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .distribution-chart {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .chart-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .bar-label {
+    width: 220px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+  }
+  
+  .section-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .section-tokens {
+    color: #666;
+    white-space: nowrap;
+  }
+  
+  .chart-bar-bg {
+    flex: 1;
+    height: 16px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .chart-bar {
+    height: 100%;
+    border-radius: 8px;
+    min-width: 2px; /* Ensure very small percentages still visible */
+  }
+  
+  .bar-percentage {
+    width: 50px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .pricing-table {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .pricing-table h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .price-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+  }
+  
+  .price-card {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .price-card.highlighted {
+    border: 2px solid #0171ce;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .model-name {
+    background-color: #0171ce;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  .price-details {
+    padding: 15px;
+  }
+  
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  .price-row.total {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+    font-weight: 600;
+  }
+  
+  .token-tips {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .token-tips h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .token-tips ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+  
+  .token-tips li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  @media (max-width: 768px) {
+    .bar-label {
+      width: 150px;
+    }
+    
+    .analytics-summary {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .price-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .chart-bar-container {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .bar-label {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+    
+    .chart-bar-bg {
+      width: 100%;
+    }
+    
+    .bar-percentage {
+      width: auto;
+      margin-top: 5px;
+    }
+    
+    .analytics-summary {
+      grid-template-columns: 1fr;
+    }
+    
+    .price-cards {
+      grid-template-columns: 1fr;
+    }
+  }

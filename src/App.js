@@ -20,7 +20,7 @@ function App() {
       const toastId = toast.info('Extracting website content. This may take a moment...', { autoClose: false });
       
       // Make API call to backend with bulkMode flag
-      const response = await axios.post('https://llmstxt-backend.onrender.com/api/scrape', 
+      const response = await axios.post('http://127.0.0.1:5000/api/scrape', 
         { urls, bulkMode }, 
         { timeout: 60000 }  // Increase timeout for larger sites
       );

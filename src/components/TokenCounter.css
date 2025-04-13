@@ -1,0 +1,195 @@
+:root {
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --color-primary: #0171ce;
+  }
+  
+  .token-counter {
+    margin: 15px 0;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .token-counter:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .token-summary {
+    padding: 12px 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+    position: relative;
+  }
+  
+  .token-summary:hover {
+    background-color: #eceef0;
+  }
+  
+  .token-summary::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    margin-top: -7px;
+    transition: transform 0.3s ease;
+  }
+  
+  .token-details-open .token-summary::after {
+    transform: rotate(-135deg);
+    margin-top: -3px;
+  }
+  
+  .token-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .token-count {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .token-model {
+    color: var(--color-primary);
+    font-weight: 500;
+    margin-left: 5px;
+  }
+  
+  .token-limit {
+    color: #666;
+  }
+  
+  .token-percentage {
+    margin-left: auto;
+    font-weight: 500;
+    padding-right: 25px;
+  }
+  
+  .token-progress-container {
+    height: 6px;
+    background-color: #e0e0e0;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  
+  .token-progress-bar {
+    height: 100%;
+    border-radius: 3px;
+    transition: width 0.5s ease, background-color 0.5s ease;
+  }
+  
+  .token-details {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background-color: white;
+  }
+  
+  .token-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .token-stat {
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .stat-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+  }
+  
+  .stat-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .token-explainer {
+    font-size: 13px;
+    color: #666;
+    background-color: #f0f1f2;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+  }
+  
+  .token-explainer p {
+    margin: 0 0 8px 0;
+  }
+  
+  .token-explainer p:last-child {
+    margin-bottom: 0;
+  }
+  
+  .token-tip {
+    background-color: #e6f2ff;
+    border-left: 4px solid var(--color-primary);
+    padding: 8px 12px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  
+  @media (max-width: 576px) {
+    .token-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Model selector styling for analytics tab */
+  .model-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .model-selector-container label {
+    font-weight: 500;
+  }
+  
+  .model-select-input {
+    flex: 1;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .model-select-input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+  }
+  
+  .tab-description {
+    margin: -5px 0 15px 0;
+    color: #666;
+    font-size: 14px;
+  }
